@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NRD LANDMAARK | Real Estate Builders &amp; Construction</title>
+<meta name="description" content="NRD LANDMAARK – premium real estate builders and construction company. Residential and commercial developments built with precision.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script>tailwind.config={theme:{extend:{colors:{navy:'#0A1428',ink:'#060D1C',gold:'#C9A96E',mist:'#AEB6C4'},fontFamily:{serif:['"Cormorant Garamond"','Georgia','serif'],sans:['Inter','system-ui','sans-serif']}}}}</script>
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/framer-motion@10.18.0/dist/framer-motion.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.24.4/babel.min.js"></script>
+<style>
+:root{color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-behavior:smooth;scroll-padding-top:80px;background:#060D1C}
+body{background:#060D1C;color:#E8EBF1;font-family:Inter,system-ui,sans-serif;overflow-x:hidden}
+.glass{background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.03));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(201,169,110,.22)}
+.gold-text{background:linear-gradient(90deg,#E9D3A3,#C9A96E,#9C7B3F);-webkit-background-clip:text;background-clip:text;color:transparent}
+.draw{stroke-dasharray:1200;stroke-dashoffset:1200;animation:draw 7s ease-in-out infinite alternate}
+@keyframes draw{to{stroke-dashoffset:0}}
+.kenburns{animation:kb 22s ease-in-out infinite alternate}
+@keyframes kb{from{transform:scale(1.04)}to{transform:scale(1.16)}}
+.card3d{transform-style:preserve-3d;transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s}
+.card3d:hover{transform:perspective(900px) rotateX(3deg) rotateY(-4deg) translateY(-6px);box-shadow:0 30px 60px -20px rgba(201,169,110,.25)}
+input,select,textarea{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);border-radius:2px;padding:.85rem 1rem;width:100%;color:#fff;outline:none;transition:border .3s}
+input:focus,select:focus,textarea:focus{border-color:#C9A96E}
+select option{background:#0A1428}
+.scene{perspective:1200px}
+.tower{transform-style:preserve-3d;animation:spin 26s linear infinite}
+@keyframes spin{from{transform:rotateX(-16deg) rotateY(0)}to{transform:rotateX(-16deg) rotateY(360deg)}}
+.face{position:absolute;border:1px solid rgba(201,169,110,.6);background-color:rgba(10,20,40,.5);box-shadow:inset 0 0 30px rgba(201,169,110,.12)}
+.float{animation:fl 7s ease-in-out infinite alternate}
+@keyframes fl{from{translate:0 -10px}to{translate:0 12px}}
+.marq{display:flex;width:max-content;animation:marq 32s linear infinite}
+@keyframes marq{to{transform:translateX(-50%)}}
+.outline{-webkit-text-stroke:1px rgba(201,169,110,.65);color:transparent}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const {useState,useEffect,useRef}=React;
+/* ===== EDITABLE CONFIG – change these values ===== */
+const CONFIG={
+  brand:"NRD LANDMAARK",
+  whatsapp:"919677990330",            // country code + number, no + or spaces
+  phoneDisplay:"+91 96779 90330",
+  email:"hello@your-domain.com",       // placeholder
+  address:"Gobichettipalayam, Tamil Nadu (update full address)",
+  heroWords:["Building Dreams.","Creating Landmarks."]
+};
+const FM=window.Motion||window.FramerMotion||window.framerMotion||{};
+const motion=FM.motion||new Proxy({},{get:(_,t)=>({initial,animate,whileInView,whileHover,whileTap,transition,viewport,variants,...p})=>React.createElement(t,p)});
+const wa=(t)=>`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(t)}`;
+const fade=(d=0)=>({initial:{opacity:0,y:36},whileInView:{opacity:1,y:0},viewport:{once:true,margin:"-60px"},transition:{duration:.8,delay:d,ease:[.2,.8,.2,1]}});
+
+/* ===== Architectural illustration (replace with real photography: <img src="..."> ) ===== */
+function Art({seed=0,tone="night",className=""}){
+  const id="a"+seed+tone;
+  const h=[[60,190],[110,240],[170,150],[230,215],[290,175],[340,230]].map(([x,y],i)=>[x+(seed*7%20),y-((seed*13+i*9)%40)]);
+  const sky=tone==="dusk"?["#1B2A4A","#B98B52"]:["#050B18","#1C2C4D"];
+  return(<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" className={className} role="img" aria-label="Architectural rendering placeholder">
+    <defs>
+      <linearGradient id={id+"s"} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor={sky[0]}/><stop offset="1" stopColor={sky[1]}/></linearGradient>
+      <linearGradient id={id+"b"} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#233659"/><stop offset="1" stopColor="#0C1730"/></linearGradient>
+      <pattern id={id+"w"} width="9" height="12" patternUnits="userSpaceOnUse"><rect x="2" y="3" width="5" height="6" fill="#E9D3A3" opacity=".75"/></pattern>
+    </defs>
+    <rect width="400" height="300" fill={`url(#${id}s)`}/>
+    <circle cx={300-seed*8} cy="70" r="26" fill="#E9D3A3" opacity=".18"/>
+    {h.map(([x,y],i)=>(<g key={i} opacity={.55+i*.08}><rect x={x} y={y} width={i%2?46:38} height={300-y} fill={`url(#${id}b)`} stroke="#C9A96E" strokeOpacity=".25"/><rect x={x+4} y={y+6} width={i%2?38:30} height={300-y-6} fill={`url(#${id}w)`} opacity=".6"/></g>))}
+    <path d="M0 262 H400" stroke="#C9A96E" strokeOpacity=".5"/>
+    <rect y="262" width="400" height="38" fill="#050B18" opacity=".7"/>
+  </svg>);
+}
+function Blueprint({className=""}){
+  return(<svg className={className} viewBox="0 0 800 500" fill="none" stroke="#C9A96E" strokeOpacity=".35" aria-hidden="true">
+    <path className="draw" d="M40 440 H760 M80 440 V120 L240 60 L400 120 V440 M400 200 H620 V440 M240 60 V440 M80 250 H400 M620 200 L700 160 V440"/>
+    <path className="draw" style={{animationDelay:"1.5s"}} d="M40 470 H760 M40 460 V480 M760 460 V480 M0 40 H800 M100 0 V500 M700 0 V500" strokeOpacity=".15"/>
+    <circle cx="240" cy="60" r="34" className="draw" style={{animationDelay:"2.5s"}}/>
+  </svg>);
+}
+
+/* ===== Data (placeholders are marked and editable) ===== */
+const NAV=[["About","about"],["Services","services"],["Projects","projects"],["Excellence","excellence"],["Why Us","why"],["Contact","contact"]];
+const SERVICES=[["Residential Development","Apartments, villas and plotted communities planned around how families live."],["Commercial Development","Offices, retail and mixed-use spaces designed for business and footfall."],["Construction & Contracting","End-to-end building execution with disciplined site management."],["Design & Planning","Architectural planning, approvals coordination and interior direction."],["Project Management","Scheduling, cost control and quality checkpoints from foundation to handover."],["Property Consultation","Guidance for buyers and investors on location, layout and documentation."]];
+const PROJECTS={
+  featured:[{n:"Sri Sai Avenue",t:"2BHK Homes · Gobichettipalayam",d:"Homes starting from ₹39.49 lakh, on Gopi–Erode road, about 400 m away. Confirm details before publishing.",s:1,tone:"dusk"},{n:"Featured Project Two",t:"Add location & type",d:"Editable placeholder – describe this project here.",s:2,tone:"night"},{n:"Featured Project Three",t:"Add location & type",d:"Editable placeholder – describe this project here.",s:3,tone:"dusk"}],
+  residential:[{n:"Residential Project A",t:"Apartments",d:"Editable placeholder.",s:4,tone:"dusk"},{n:"Residential Project B",t:"Villas",d:"Editable placeholder.",s:5,tone:"night"},{n:"Residential Project C",t:"Plotted layout",d:"Editable placeholder.",s:6,tone:"dusk"}],
+  commercial:[{n:"Commercial Project A",t:"Office space",d:"Editable placeholder.",s:7,tone:"night"},{n:"Commercial Project B",t:"Retail complex",d:"Editable placeholder.",s:8,tone:"dusk"},{n:"Commercial Project C",t:"Mixed-use",d:"Editable placeholder.",s:9,tone:"night"}]
+};
+const STEPS=[["01","Site & Planning","Survey, design coordination and approvals."],["02","Foundation & Structure","Engineered frameworks with checked materials."],["03","Finishing & Systems","Detailing, services and interiors."],["04","Handover","Inspection, documentation and keys."]];
+const WHY=["Transparent communication at every stage","Quality-checked materials and workmanship","Thoughtful design with practical layouts","Clear documentation and timelines","Dedicated point of contact for every client","Add your own differentiator here"];
+const STATS=[["[00]","Projects delivered"],["[00]","Happy families"],["[00]","Sq. ft. built"],["[00]","Years of experience"]];
+const TESTI=[1,2,3];
+
+function Heading({eyebrow,title,sub,center}){
+  return(<motion.div {...fade()} className={"mb-14 "+(center?"text-center mx-auto max-w-2xl":"max-w-2xl")}>
+    <p className="text-gold tracking-[.35em] text-xs uppercase mb-4">{eyebrow}</p>
+    <h2 className="font-serif text-4xl md:text-6xl leading-[1.05]">{title}</h2>
+    {sub&&<p className="text-mist mt-5 leading-relaxed font-light">{sub}</p>}
+  </motion.div>);
+}
+const Sec=({id,children,className=""})=>(<section id={id} className={"relative px-5 md:px-12 py-24 md:py-36 "+className}><div className="max-w-7xl mx-auto relative">{children}</div></section>);
+
+function Logo(){return(<a href="#top" className="flex items-center gap-3" aria-label={CONFIG.brand}>
+  <svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#C9A96E" strokeWidth="1.4"><path d="M4 30V10l13-7 13 7v20M4 30h26M12 30V16h10v14M17 3v13"/></svg>
+  <span className="font-serif text-xl tracking-[.28em]">NRD <span className="gold-text">LANDMAARK</span></span></a>);}
+
+function Nav(){
+  const [open,setOpen]=useState(false);const [solid,setSolid]=useState(false);
+  useEffect(()=>{const f=()=>setSolid(scrollY>40);f();addEventListener("scroll",f,{passive:true});return()=>removeEventListener("scroll",f)},[]);
+  return(<header className={"fixed top-0 inset-x-0 z-50 transition-all duration-500 "+(solid||open?"glass":"")} style={{paddingTop:"env(safe-area-inset-top,0px)"}}>
+    <nav className="max-w-7xl mx-auto px-5 md:px-12 h-20 flex items-center justify-between" aria-label="Main">
+      <Logo/>
+      <ul className="hidden lg:flex gap-9 text-sm tracking-widest uppercase text-mist">
+        {NAV.map(([l,i])=><li key={i}><a className="hover:text-gold transition-colors" href={"#"+i}>{l}</a></li>)}</ul>
+      <a href="#contact" className="hidden lg:block border border-gold/60 text-gold px-6 py-2.5 text-xs tracking-[.25em] uppercase hover:bg-gold hover:text-navy transition-all duration-500">Enquire</a>
+      <button className="lg:hidden w-10 h-10 grid place-items-center" aria-label="Menu" aria-expanded={open} onClick={()=>setOpen(!open)}>
+        <span className="block w-6"><i className={"block h-px bg-white mb-2 transition-all "+(open?"rotate-45 translate-y-[9px]":"")}/><i className={"block h-px bg-white mb-2 transition-all "+(open?"opacity-0":"")}/><i className={"block h-px bg-white transition-all "+(open?"-rotate-45 -translate-y-[9px]":"")}/></span></button>
+    </nav>
+    {open&&<ul className="lg:hidden px-5 pb-8 space-y-5 text-lg font-serif">{NAV.map(([l,i])=><li key={i}><a onClick={()=>setOpen(false)} href={"#"+i}>{l}</a></li>)}</ul>}
+  </header>);
+}
+
+const Box=({w,d,h,x=0,z=0})=>{
+  const win={backgroundImage:"repeating-linear-gradient(0deg,transparent 0 16px,rgba(233,211,163,.32) 16px 18px),repeating-linear-gradient(90deg,transparent 0 20px,rgba(233,211,163,.16) 20px 22px)"};
+  const face=(W,t)=>({width:W,height:h,left:-W/2,top:-h/2,transform:t,...win});
+  return(<div style={{position:"absolute",transformStyle:"preserve-3d",transform:`translate3d(${x}px,${150-h/2}px,${z}px)`}}>
+    {[[w,`translateZ(${d/2}px)`],[w,`rotateY(180deg) translateZ(${d/2}px)`],[d,`rotateY(90deg) translateZ(${w/2}px)`],[d,`rotateY(-90deg) translateZ(${w/2}px)`]].map(([W,t],i)=><div key={i} className="face" style={face(W,t)}/>)}
+    <div className="face" style={{width:w,height:d,left:-w/2,top:-d/2,transform:`translateY(${-h/2}px) rotateX(90deg)`,background:"rgba(201,169,110,.25)"}}/>
+  </div>);
+};
+function Tower3D(){return(<div className="scene absolute right-[5%] top-1/2 -translate-y-1/2 hidden lg:block" style={{width:360,height:360}} aria-hidden="true">
+  <div className="float"><div className="tower" style={{position:"relative",width:0,height:0,left:180,top:180}}>
+    <Box w={300} d={220} h={22} x={0} z={0}/><Box w={110} d={110} h={300}/><Box w={80} d={80} h={190} x={-115} z={55}/><Box w={70} d={70} h={130} x={100} z={-70}/>
+  </div></div></div>);}
+function Spotlight(){const r=useRef(null);useEffect(()=>{const m=e=>{if(r.current)r.current.style.background=`radial-gradient(420px circle at ${e.clientX}px ${e.clientY}px,rgba(201,169,110,.14),transparent 70%)`};addEventListener("mousemove",m);return()=>removeEventListener("mousemove",m)},[]);return <div ref={r} className="fixed inset-0 z-[30] pointer-events-none" aria-hidden="true"/>;}
+function Progress(){const [p,setP]=useState(0);useEffect(()=>{const f=()=>setP(scrollY/Math.max(1,document.body.scrollHeight-innerHeight));addEventListener("scroll",f,{passive:true});return()=>removeEventListener("scroll",f)},[]);return <div className="fixed top-0 left-0 h-[2px] z-[70] bg-gradient-to-r from-gold to-white" style={{width:p*100+"%"}}/>;}
+function Marquee(){const w=["Residential","Commercial","Construction","Design","Planning","Landmarks"];const row=[...w,...w].map((t,i)=><span key={i} className="flex items-center gap-8 pr-8"><span className="font-serif text-5xl md:text-7xl outline uppercase">{t}</span><span className="text-gold text-2xl">◆</span></span>);
+  return(<div className="py-10 overflow-hidden border-y border-gold/20 bg-ink" aria-hidden="true"><div className="marq">{row}{row}</div></div>);}
+function RisingSkyline(){const hs=[40,70,55,100,85,110,60,90,45,75,95,65];
+  return(<svg viewBox="0 0 760 130" className="w-full h-auto mb-14" aria-hidden="true"><defs><linearGradient id="rg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#C9A96E" stopOpacity=".55"/><stop offset="1" stopColor="#C9A96E" stopOpacity=".03"/></linearGradient></defs>
+    {hs.map((h,i)=><motion.rect key={i} x={i*63+4} y={125-h} width={46} height={h} fill="url(#rg)" stroke="#C9A96E" strokeOpacity=".6" style={{transformBox:"fill-box",transformOrigin:"50% 100%"}} initial={{scaleY:0}} whileInView={{scaleY:1}} viewport={{once:true}} transition={{duration:1.2,delay:i*.09,ease:[.2,.8,.2,1]}}/>)}
+    <path d="M0 126H760" stroke="#C9A96E" strokeOpacity=".7"/></svg>);}
+function Hero(){
+  const ref=useRef(null);
+  useEffect(()=>{const f=()=>{if(ref.current)ref.current.style.transform=`translateY(${Math.min(scrollY,900)*.25}px)`};addEventListener("scroll",f,{passive:true});return()=>removeEventListener("scroll",f)},[]);
+  return(<section id="top" className="relative min-h-screen flex items-center overflow-hidden px-5 md:px-12">
+    <div ref={ref} className="absolute inset-0 will-change-transform"><Art seed={2} tone="dusk" className="kenburns w-full h-[115%]"/></div>
+    <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/50 to-navy/50"/>
+    <Blueprint className="absolute right-0 bottom-0 w-[70%] max-w-4xl opacity-70 hidden md:block"/><Tower3D/>
+    <div className="relative max-w-7xl mx-auto w-full pt-28">
+      <motion.p initial={{opacity:0}} animate={{opacity:1}} transition={{delay:.2,duration:1}} className="text-gold tracking-[.4em] text-xs uppercase mb-8">Real Estate Builders &amp; Construction</motion.p>
+      <h1 className="font-serif text-[2.9rem] sm:text-7xl lg:text-[8rem] leading-[.95] max-w-5xl">
+        {CONFIG.heroWords.map((w,i)=><span key={i} className="block overflow-hidden pb-2"><motion.span className={"block "+(i?"gold-text italic":"")} initial={{y:"110%"}} animate={{y:0}} transition={{duration:1.1,delay:.4+i*.25,ease:[.2,.8,.2,1]}}>{w}</motion.span></span>)}
+      </h1>
+      <motion.p initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{delay:1.1,duration:.9}} className="mt-8 max-w-xl text-mist text-lg font-light leading-relaxed">NRD LANDMAARK designs and builds residences and commercial spaces with architectural precision, honest craftsmanship and a lasting sense of place.</motion.p>
+      <motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{delay:1.3,duration:.9}} className="mt-10 flex flex-wrap gap-4">
+        <a href="#projects" className="bg-gold text-navy px-8 py-4 text-xs tracking-[.25em] uppercase font-medium hover:bg-white transition-colors duration-500">Explore Our Projects</a>
+        <a href="#contact" className="glass px-8 py-4 text-xs tracking-[.25em] uppercase hover:border-gold transition-colors">Contact Us</a>
+      </motion.div>
+    </div>
+    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-px h-14 bg-gradient-to-b from-gold to-transparent"/>
+  </section>);
+}
+
+function About(){return(<Sec id="about"><Blueprint className="absolute -left-20 top-0 w-[60%] opacity-40"/>
+  <div className="grid lg:grid-cols-2 gap-14 items-center relative">
+    <div><Heading eyebrow="About NRD LANDMAARK" title={<>Architecture with <span className="gold-text italic">intent</span>.</>}/>
+      <motion.p {...fade(.1)} className="text-mist font-light leading-loose">NRD LANDMAARK is a real estate development and construction company focused on homes and commercial spaces that are well planned, well built and built to last. <span className="text-white/70">[Edit: add founding story, years of experience and leadership details here.]</span></motion.p>
+      <motion.div {...fade(.2)} className="mt-8 grid grid-cols-3 gap-4 text-center">{["Design","Build","Deliver"].map(t=><div key={t} className="glass py-5 font-serif text-xl">{t}</div>)}</motion.div></div>
+    <motion.div {...fade(.15)} className="relative card3d"><div className="aspect-[4/5] overflow-hidden border border-gold/30"><Art seed={5} tone="night" className="w-full h-full"/></div><div className="absolute -bottom-5 -left-5 w-2/3 h-2/3 border border-gold/40 -z-10"/></motion.div>
+  </div></Sec>);}
+
+function Services(){return(<Sec id="services" className="bg-navy">
+  <Heading eyebrow="Our Services" title="Everything a landmark needs." sub="From first sketch to final handover, one accountable team."/>
+  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-gold/15 border border-gold/15">
+    {SERVICES.map(([t,d],i)=><motion.div key={t} {...fade(i*.07)} className="group bg-navy p-9 hover:bg-[#0E1C3A] transition-colors duration-500 relative overflow-hidden">
+      <span className="font-serif text-6xl text-gold/20 group-hover:text-gold/60 transition-colors duration-500">0{i+1}</span>
+      <h3 className="font-serif text-2xl mt-4 mb-3">{t}</h3><p className="text-mist font-light leading-relaxed">{d}</p>
+      <span className="absolute bottom-0 left-0 h-px w-0 group-hover:w-full bg-gold transition-all duration-700"/></motion.div>)}</div></Sec>);}
+
+function Card({p,onOpen,i}){return(<motion.button {...fade(i*.1)} onClick={()=>onOpen(p)} className="card3d text-left group block w-full">
+  <div className="aspect-[4/3] overflow-hidden border border-white/10 relative"><Art seed={p.s} tone={p.tone} className="w-full h-full group-hover:scale-110 transition-transform duration-[1500ms]"/>
+    <span className="absolute top-4 right-4 glass text-[10px] tracking-[.25em] uppercase px-3 py-1.5 opacity-0 group-hover:opacity-100 transition-opacity">View</span></div>
+  <p className="text-gold text-xs tracking-[.3em] uppercase mt-5">{p.t}</p><h3 className="font-serif text-2xl mt-1">{p.n}</h3></motion.button>);}
+
+function Projects(){
+  const [sel,setSel]=useState(null);
+  useEffect(()=>{const k=e=>e.key==="Escape"&&setSel(null);addEventListener("keydown",k);return()=>removeEventListener("keydown",k)},[]);
+  const grp=(id,eyebrow,title,list,bg)=>(<Sec id={id} className={bg}><Heading eyebrow={eyebrow} title={title}/><div className="grid md:grid-cols-3 gap-8">{list.map((p,i)=><Card key={p.n} p={p} i={i} onOpen={setSel}/>)}</div></Sec>);
+  return(<>
+    {grp("projects","Featured Projects","Signature developments.",PROJECTS.featured,"")}
+    {grp("residential","Residential Projects","Homes worth coming home to.",PROJECTS.residential,"bg-navy")}
+    {grp("commercial","Commercial Developments","Spaces that mean business.",PROJECTS.commercial,"")}
+    {sel&&<div className="fixed inset-0 z-[60] grid place-items-center p-5 bg-ink/90 backdrop-blur-md" onClick={()=>setSel(null)} role="dialog" aria-modal="true">
+      <motion.div initial={{opacity:0,scale:.94}} animate={{opacity:1,scale:1}} className="glass max-w-4xl w-full grid md:grid-cols-2" onClick={e=>e.stopPropagation()}>
+        <div className="aspect-square md:aspect-auto"><Art seed={sel.s} tone={sel.tone} className="w-full h-full"/></div>
+        <div className="p-8 md:p-10 flex flex-col justify-center"><p className="text-gold text-xs tracking-[.3em] uppercase">{sel.t}</p><h3 className="font-serif text-4xl my-3">{sel.n}</h3><p className="text-mist font-light leading-relaxed">{sel.d}</p>
+          <a href={wa("Hello, I would like to know more about "+sel.n)} target="_blank" rel="noopener" className="mt-8 bg-gold text-navy text-center py-3.5 text-xs tracking-[.25em] uppercase">Enquire on WhatsApp</a>
+          <button onClick={()=>setSel(null)} className="mt-4 text-mist text-sm hover:text-white">Close</button></div></motion.div></div>}
+  </>);
+}
+
+function Excellence(){return(<Sec id="excellence" className="bg-navy overflow-hidden"><Blueprint className="absolute right-0 top-10 w-[55%] opacity-50"/>
+  <Heading eyebrow="Construction Excellence" title={<>Precision, <span className="gold-text italic">stage by stage</span>.</>}/>
+  <RisingSkyline/><div className="grid md:grid-cols-4 gap-6 relative">{STEPS.map(([n,t,d],i)=><motion.div key={n} {...fade(i*.12)} className="glass p-7 card3d"><p className="font-serif text-5xl gold-text">{n}</p><h3 className="font-serif text-xl mt-5 mb-2">{t}</h3><p className="text-mist text-sm font-light leading-relaxed">{d}</p></motion.div>)}</div></Sec>);}
+
+function Why(){return(<Sec id="why"><div className="grid lg:grid-cols-5 gap-14">
+  <div className="lg:col-span-2"><Heading eyebrow="Why Choose Us" title="Built on trust."/></div>
+  <ul className="lg:col-span-3 divide-y divide-white/10">{WHY.map((w,i)=><motion.li key={i} {...fade(i*.06)} className="py-6 flex gap-6 items-baseline group"><span className="text-gold font-serif text-xl">0{i+1}</span><span className="text-xl font-light group-hover:translate-x-2 transition-transform duration-500">{w}</span></motion.li>)}</ul></div></Sec>);}
+
+function Achievements(){return(<Sec id="achievements" className="bg-navy"><Heading eyebrow="Our Achievements" title="Numbers that speak." sub="Replace each [00] with a verified figure before launch." center/>
+  <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">{STATS.map(([v,l],i)=><motion.div key={l} {...fade(i*.1)} className="glass text-center py-12"><p className="font-serif text-5xl gold-text">{v}</p><p className="text-mist text-xs tracking-[.25em] uppercase mt-3">{l}</p></motion.div>)}</div></Sec>);}
+
+function Testimonials(){return(<Sec id="testimonials"><Heading eyebrow="Client Testimonials" title="In their words." sub="Placeholders only. Add genuine, permission-approved client testimonials."/>
+  <div className="grid md:grid-cols-3 gap-6">{TESTI.map(i=><motion.figure key={i} {...fade(i*.1)} className="glass p-8"><span className="font-serif text-6xl text-gold leading-none">“</span><blockquote className="text-mist font-light italic leading-relaxed">[Client testimonial {i} – add real feedback here.]</blockquote><figcaption className="mt-6 text-sm tracking-widest uppercase text-gold">[Client name]<span className="block text-mist normal-case tracking-normal mt-1">[Project / location]</span></figcaption></motion.figure>)}</div></Sec>);}
+
+function Contact(){
+  const [f,setF]=useState({name:"",phone:"",interest:"Residential",msg:""});const [sent,setSent]=useState(false);
+  const set=k=>e=>setF({...f,[k]:e.target.value});
+  const submit=e=>{e.preventDefault();const t=`Hello NRD LANDMAARK,\nName: ${f.name}\nPhone: ${f.phone}\nInterested in: ${f.interest}\n${f.msg}`;setSent(true);window.open(wa(t),"_blank","noopener")};
+  return(<Sec id="contact" className="bg-navy"><div className="grid lg:grid-cols-2 gap-14">
+    <div><Heading eyebrow="Contact & Enquiry" title={<>Let’s build your <span className="gold-text italic">landmark</span>.</>}/>
+      <motion.div {...fade(.1)} className="space-y-4 text-mist font-light"><p>{CONFIG.address}</p><p><a className="hover:text-gold" href={"tel:+"+CONFIG.whatsapp}>{CONFIG.phoneDisplay}</a></p><p>{CONFIG.email}</p>
+        <a href={wa("Hello, I would like to enquire about NRD LANDMAARK projects.")} target="_blank" rel="noopener" className="inline-block mt-4 border border-gold/60 text-gold px-7 py-3.5 text-xs tracking-[.25em] uppercase hover:bg-gold hover:text-navy transition-all duration-500">Chat on WhatsApp</a></motion.div></div>
+    <motion.form {...fade(.15)} onSubmit={submit} className="glass p-8 md:p-10 space-y-4">
+      <label className="block"><span className="sr-only">Name</span><input required placeholder="Your name" value={f.name} onChange={set("name")}/></label>
+      <label className="block"><span className="sr-only">Phone</span><input required type="tel" placeholder="Phone number" value={f.phone} onChange={set("phone")}/></label>
+      <label className="block"><span className="sr-only">Interest</span><select value={f.interest} onChange={set("interest")}><option>Residential</option><option>Commercial</option><option>Construction / Contracting</option><option>Other</option></select></label>
+      <label className="block"><span className="sr-only">Message</span><textarea rows="4" placeholder="Tell us about your requirement" value={f.msg} onChange={set("msg")}/></label>
+      <button className="w-full bg-gold text-navy py-4 text-xs tracking-[.3em] uppercase font-medium hover:bg-white transition-colors duration-500">Send Enquiry via WhatsApp</button>
+      {sent&&<p className="text-gold text-sm" role="status">Thank you. WhatsApp should open with your enquiry ready to send.</p>}
+    </motion.form></div></Sec>);}
+
+function Footer(){return(<footer className="relative px-5 md:px-12 pt-20 pb-10 bg-ink border-t border-gold/20 overflow-hidden"><Blueprint className="absolute right-0 bottom-0 w-1/2 opacity-30"/>
+  <div className="max-w-7xl mx-auto relative grid md:grid-cols-3 gap-10"><div><Logo/><p className="text-mist font-light mt-5 max-w-xs">Real estate builders and construction. Building dreams, creating landmarks.</p></div>
+    <div><p className="text-gold text-xs tracking-[.3em] uppercase mb-4">Explore</p><ul className="space-y-2 text-mist font-light">{NAV.map(([l,i])=><li key={i}><a className="hover:text-gold" href={"#"+i}>{l}</a></li>)}</ul></div>
+    <div><p className="text-gold text-xs tracking-[.3em] uppercase mb-4">Contact</p><p className="text-mist font-light">{CONFIG.phoneDisplay}<br/>{CONFIG.address}</p></div></div>
+  <p className="max-w-7xl mx-auto relative mt-14 pt-6 border-t border-white/10 text-xs text-mist/70">© {new Date().getFullYear()} NRD LANDMAARK. All rights reserved. Images are illustrative placeholders.</p></footer>);}
+
+function App(){return(<><Progress/><Spotlight/><div className="fixed inset-0 z-[55] pointer-events-none opacity-[.07]" aria-hidden="true" style={{backgroundImage:`url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`}}/><Nav/><main><Hero/><Marquee/><About/><Services/><Projects/><Excellence/><Why/><Achievements/><Testimonials/><Contact/></main><Footer/>
+  <a href={wa("Hello NRD LANDMAARK")} target="_blank" rel="noopener" aria-label="WhatsApp" className="fixed right-5 bottom-5 z-40 w-14 h-14 rounded-full bg-gold text-navy grid place-items-center shadow-2xl hover:scale-110 transition-transform" style={{marginBottom:"env(safe-area-inset-bottom,0px)"}}>
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.1c-.2.6-1.300 1.200-1.800 1.200-.5.100-1 .2-3.300-.7-2.800-1.100-4.500-4-4.700-4.200-.1-.2-1.100-1.500-1.100-2.800s.7-2 1-2.300c.2-.3.500-.3.700-.3h.5c.2 0 .4 0 .6.500l.8 1.900c.1.200.1.400 0 .5l-.4.600c-.1.200-.3.300-.1.600.2.300.8 1.300 1.700 2.100 1.100 1 2.100 1.300 2.400 1.500.3.100.5.100.6-.1l.9-1.100c.2-.3.400-.2.700-.1l1.800.9c.3.100.5.200.5.300.1.200.1.800-.1 1.500z"/></svg></a></>);}
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
+</body>
+</html>
